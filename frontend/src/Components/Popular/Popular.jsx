@@ -6,7 +6,7 @@ const Popular = () => {
   const [data_product_women,setData_Product_Women]=useState([]);
 
   useEffect(()=>{
-    fetch('http://localhost:4000/popularinwomen')
+    fetch('https://e-commerce-backend-xyu4.onrender.com/popularinwomen')
     .then((response)=>response.json())
     .then((data)=>setData_Product_Women(data));
   },[])
@@ -14,7 +14,7 @@ const Popular = () => {
   const [data_product_men,setData_Product_Men]=useState([]);
 
   useEffect(()=>{
-    fetch('http://localhost:4000/popularinmen')
+    fetch('https://e-commerce-backend-xyu4.onrender.com/popularinmen')
     .then((response)=>response.json())
     .then((data)=>setData_Product_Men(data));
   },[])

@@ -38,7 +38,7 @@ export const paymentVerification = async (req, res) => {
     });
 
     res.redirect(
-      `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
+      `https://e-commerce-frontend-5b1g.onrender.com/paymentsuccess?reference=${razorpay_payment_id}`
     );
   } else {
     res.status(400).json({

@@ -3,9 +3,10 @@ import "./CartItems.css";
 import { ShopContext } from "../../Context/ShopContext";
 import remove_icon from "../Assets/cart_cross_icon.png";
 import axios from "axios";
+import all_product from '../Assets/all_product'
 
 const CartItems = () => {
-  const {getTotalCartAmount, all_product, cartItems, removeFromCart} = useContext(ShopContext);
+  const {getTotalCartAmount, all_product_online, cartItems, removeFromCart} = useContext(ShopContext);
 
   const checkoutHandler = async (amount) => {
 
@@ -52,6 +53,28 @@ const CartItems = () => {
       </div>
       <hr />
       {all_product.map((e) => {
+        if (cartItems[e.id] > 0) {
+          return <div>
+                    <div className="cartitems-format-main cartitems-format">
+                    <img className="carticon-product-icon" src={e.image} alt="" />
+                    <p>{e.name}</p>
+                    <p>₹{e.new_price}</p>
+                    <button className="cartitems-quantity">{cartItems[e.id]}</button>
+                    <p>₹{e.new_price * cartItems[e.id]}</p>
+                    <img className="cartitems-remove-icon"
+                        src={remove_icon}
+                        onClick={() => {
+                        removeFromCart(e.id);
+                        }}
+                        alt=""
+                    />
+                    </div>
+                    <hr />
+                </div>
+        }
+        return null;
+      })}
+      {all_product_online.map((e) => {
         if (cartItems[e.id] > 0) {
           return <div>
                     <div className="cartitems-format-main cartitems-format">

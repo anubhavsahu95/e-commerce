@@ -5,8 +5,8 @@ import newcollection from '../Assets/new_collections'
 
 const NewCollections = () => {
 
-  /*
-  const [newcollection,setNewcollection]=useState([]);
+  
+  const [newcollection_online,setNewcollection]=useState([]);
 
   useEffect(()=>{
     fetch('https://e-commerce-backend-xyu4.onrender.com/newcollection')
@@ -14,7 +14,7 @@ const NewCollections = () => {
     .then((data)=>setNewcollection(data));
   },[])
 
-  */
+  
 
   return (
     <div className='new-collection'>
@@ -22,6 +22,9 @@ const NewCollections = () => {
       <hr />
       <div className="collections">
         {newcollection.map((item,i)=>{
+            return <Item key={i} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price}/>
+        })}
+        {newcollection_online.map((item,i)=>{
             return <Item key={i} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price}/>
         })}
       </div>

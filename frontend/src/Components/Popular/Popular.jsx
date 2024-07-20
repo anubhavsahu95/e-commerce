@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './Popular.css'
 import Item from '../Item/Item'
+import data_product_women from '../Assets/data'
+import data_product_men from '../Assets/data_men'
+
 const Popular = () => {
 
+  /*
   const [data_product_women,setData_Product_Women]=useState([]);
 
   useEffect(()=>{
@@ -18,6 +22,7 @@ const Popular = () => {
     .then((response)=>response.json())
     .then((data)=>setData_Product_Men(data));
   },[])
+  */
 
   return (
     <>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './NewCollections.css'
 import Item from '../Item/Item'
+import newcollection from '../Assets/new_collections'
 
 const NewCollections = () => {
 
+  /*
   const [newcollection,setNewcollection]=useState([]);
 
   useEffect(()=>{
@@ -11,6 +13,8 @@ const NewCollections = () => {
     .then((response)=>response.json())
     .then((data)=>setNewcollection(data));
   },[])
+
+  */
 
   return (
     <div className='new-collection'>

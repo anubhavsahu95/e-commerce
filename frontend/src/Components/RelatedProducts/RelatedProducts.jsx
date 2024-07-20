@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './RelatedProducts.css'
 import Item from '../Item/Item'
+import data_product_women from '../Assets/data'
 const RelatedProducts = () => {
 
+  /*
   const [data_product_women,setData_Product_Women]=useState([]);
 
   useEffect(()=>{
@@ -10,6 +12,7 @@ const RelatedProducts = () => {
     .then((response)=>response.json())
     .then((data)=>setData_Product_Women(data));
   },[])
+  */
 
   return (
     <div className='relatedproducts'>

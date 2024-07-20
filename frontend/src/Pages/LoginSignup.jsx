@@ -19,7 +19,7 @@ const LoginSignup = () => {
     const login=async()=>{
       console.log("Login Executed",formData);
       let responseData;
-      await fetch('https://e-commerce-backend-xyu4.onrender.com/login',{
+      await fetch('http://localhost:4000/login',{
         method:'POST',
         headers:{
           Accept:'application/form-data',
@@ -40,7 +40,7 @@ const LoginSignup = () => {
     const signup=async()=>{
       console.log("Signup Executed",formData);
       let responseData;
-      await fetch('https://e-commerce-backend-xyu4.onrender.com/signup',{
+      await fetch('http://localhost:4000/signup',{
         method:'POST',
         headers:{
           Accept:'application/form-data',

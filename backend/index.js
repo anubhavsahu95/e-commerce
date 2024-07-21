@@ -110,7 +110,7 @@ app.post("/addproduct", async (req, res) => {
 
 // Creating API for deleting Products
 
-app.post("/removeproduct", async (req, res) => {
+app.post("/removeproduct",fetchUser, async (req, res) => {
   let userData = await Users.findOne({_id:req.user.id});
   if(userData.cartData[req.body.itemId]>0)
   userData.cartData[req.body.itemId]=0;

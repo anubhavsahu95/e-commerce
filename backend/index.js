@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 const corsOptions = {
-  origin: 'https://e-commerce-admin-gsnx.onrender.com/',
+  origin: 'https://e-commerce-admin-gsnx.onrender.com',
 }
 
 // Database Connection With MongoDB

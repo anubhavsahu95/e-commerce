@@ -21,36 +21,60 @@ const AddProduct = () => {
         setProductDetails({...productDetails,[e.target.name]:e.target.value})
     }
 
-    const Add_Product = async ()=>{
-        console.log(productDetails);
-        let responseData;
-        let product=productDetails;
+    const Add_Product = async () => {
+      console.log(productDetails);
+      let responseData;
+      let product = productDetails;
+  
+      // Prepare form data for Cloudinary upload
+      let formData = new FormData();
+      const imageInput = document.querySelector('#file-input');
+      const image = imageInput.files[0];
 
-        let formData = new FormData();
-        formData.append('product',image);
+      formData.append('file', image); // The file object from your input
+      formData.append('upload_preset', 'boogie'); // Replace with your Cloudinary preset
+  
+      // Upload the image to Cloudinary
+      await fetch('https://api.cloudinary.com/v1_1/dycm95cjc/image/upload', {
+          method: 'POST',
+          body: formData,
+      })
+      .then((resp) => resp.json())
+      .then((data) => {
+          if (data.secure_url) {
+              product.image = data.secure_url; // Use the Cloudinary image URL
+          } else {
+              throw new Error("Image upload failed");
+          }
+      })
+      .catch((err) => {
+          console.error("Error uploading image:", err);
+      });
+  
+      // Proceed to add the product to your backend
+      if (product.image) {
+        console.log("Adding product:", product); // Log product object before sending
 
-        await fetch('https://e-commerce-backend-xyu4.onrender.com/upload',{
-            method:"POST",
-            headers:{
-                Accept:'application/json',
+        await fetch('https://e-commerce-backend-xyu4.onrender.com/addproduct', {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json', // Set correct headers
             },
-            body:formData,
-        }).then((resp)=>resp.json()).then((data)=>{responseData=data})
-
-        if(responseData.success){
-            product.image=responseData.image_url;
-            console.log(product);
-            await fetch('https://e-commerce-backend-xyu4.onrender.com/addproduct',{
-                method:"POST",
-                headers:{
-                    Accept:'application/json',
-                    'Content-Type':'application/json',
-                },
-                body:JSON.stringify(product),
-            }).then((resp)=>resp.json()).then((data)=>{alert("Product Added")})
-    
-        }
+            body: JSON.stringify(product), // Convert product object to JSON
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            console.log("Response from addproduct endpoint:", data); // Log the response from backend
+            alert("Product Added Successfully");
+        })
+        .catch((err) => {
+            console.error("Error adding product:", err); // Log any error that occurs during the request
+        });
+    } else {
+        console.error("No image URL found, product not added");
     }
+};
 
   return (
     <div className='addproduct'>

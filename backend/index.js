@@ -1,4 +1,6 @@
 require('dotenv').config();
+const cloudinary=require("cloudinary");
+const fs=require("fs");
 const port = 4000;
 const express = require("express");
 const app = express();
@@ -23,6 +25,31 @@ app.get("/", (req, res) => {
   res.send("Express App is Running");
 });
 
+
+//Cloudinary
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const uploadOnCloudinary = async (localFilePath)=>{
+  try {
+    if(!localFilePath)return null
+
+    const response = await cloudinary.uploader.upload(localFilePath,{
+      resource_type:"auto"
+    })
+    console.log("file is uploaded on cloudinary",response.url);
+    return response;
+
+  } catch (error) {
+      fs.unlinkSync(localFilePath)
+      return null
+  }
+}
+
 // Image Storage Engine
 
 const storage = multer.diskStorage({
@@ -38,12 +65,26 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Creating Upload Endpoint for Images
+// app.use("/images", express.static("upload/images"));
+// app.post("/upload", upload.single("product"), (req, res) => {
+//   res.json({
+//     success: 1,
+//     image_url: `https://e-commerce-backend-xyu4.onrender.com/images/${req.file.filename}`,
+//   });
+// });
+
 app.use("/images", express.static("upload/images"));
-app.post("/upload", upload.single("product"), (req, res) => {
-  res.json({
-    success: 1,
-    image_url: `https://e-commerce-backend-xyu4.onrender.com/images/${req.file.filename}`,
-  });
+app.post("/upload", upload.single("product"), async (req, res) => {
+  const localFilePath = req.file.path;
+  const uploadResponse = await uploadOnCloudinary(localFilePath);
+  if (uploadResponse) {
+    res.json({
+      success: 1,
+      image_url: uploadResponse.url,
+    });
+  } else {
+    res.status(500).json({ success: 0, message: "Upload failed" });
+  }
 });
 
 // Schema for Creating Products

@@ -14,6 +14,10 @@ const { type } = require("os");
 app.use(express.json());
 app.use(cors());
 
+const corsOptions = {
+  origin: 'https://e-commerce-admin-gsnx.onrender.com/',
+}
+
 // Database Connection With MongoDB
 mongoose.connect(
   process.env.MONGO_URI

@@ -52,7 +52,7 @@ const CartItems = () => {
         <p>Remove</p>
       </div>
       <hr />
-      {all_product.map((e) => {
+      {/* {all_product.map((e) => {
         if (cartItems[e.id] > 0) {
           return <div>
                     <div className="cartitems-format-main cartitems-format">
@@ -73,7 +73,7 @@ const CartItems = () => {
                 </div>
         }
         return null;
-      })}
+      })} */}
       {all_product_online.map((e) => {
         if (cartItems[e.id] > 0) {
           return <div>

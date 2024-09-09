@@ -73,14 +73,17 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        let itemInfo = all_product.find(
-          (product) => product.id === Number(item)
-        );
-        if(!itemInfo){
-          itemInfo = all_product_online.find(
-            (product) => product.id === Number(item)
-          );
-        }
+        // let itemInfo = all_product.find(
+        //   (product) => product.id === Number(item)
+        // );
+        // if(!itemInfo){
+        //   itemInfo = all_product_online.find(
+        //     (product) => product.id === Number(item)
+        //   );
+        // }
+        let itemInfo = all_product_online.find(
+             (product) => product.id === Number(item)
+           );
         totalAmount += itemInfo.new_price * cartItems[item];
       }
     }

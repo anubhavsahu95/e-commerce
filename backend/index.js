@@ -21,17 +21,17 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);  // Allow the request if the origin is in the list
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));  // Reject the request if the origin is not allowed
+      callback(new Error('Not allowed by CORS'));
     }
   },
-  // other options like methods, credentials, etc.
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization','auth-token'],
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
 
 // Database Connection With MongoDB

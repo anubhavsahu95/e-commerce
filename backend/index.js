@@ -11,8 +11,6 @@ const path = require("path");
 const cors = require("cors");
 const { type } = require("os");
 
-app.use(express.json());
-
 const allowedOrigins = [
   'https://e-commerce-admin-gsnx.onrender.com',
   'https://e-commerce-frontend-5b1g.onrender.com',
@@ -29,11 +27,13 @@ const corsOptions = {
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'auth-token'],
   credentials: true,
 };
 
 app.use(cors(corsOptions));
+
+app.use(express.json());
 
 // Database Connection With MongoDB
 mongoose.connect(

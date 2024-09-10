@@ -8,7 +8,7 @@ const RelatedProducts = () => {
   const [data_product_women,setData_Product_Women]=useState([]);
 
   useEffect(()=>{
-    fetch('https://e-commerce-backend-xyu4.onrender.com/popularinwomen')
+    fetch('https://e-commerce-back-end-vmli.onrender.com/popularinwomen')
     .then((response)=>response.json())
     .then((data)=>setData_Product_Women(data));
   },[])

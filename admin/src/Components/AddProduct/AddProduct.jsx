@@ -55,7 +55,7 @@ const AddProduct = () => {
       if (product.image) {
         console.log("Adding product:", product); // Log product object before sending
 
-        await fetch('https://e-commerce-backend-xyu4.onrender.com/addproduct', {
+        await fetch('https://e-commerce-back-end-vmli.onrender.com/addproduct', {
             method: "POST",
             headers: {
                 Accept: 'application/json',

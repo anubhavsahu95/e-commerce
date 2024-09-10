@@ -9,7 +9,7 @@ const Popular = () => {
   const [data_product_women,setData_Product_Women]=useState([]);
 
   useEffect(()=>{
-    fetch('https://e-commerce-backend-xyu4.onrender.com/popularinwomen')
+    fetch('https://e-commerce-back-end-vmli.onrender.com/popularinwomen')
     .then((response)=>response.json())
     .then((data)=>setData_Product_Women(data));
   },[])
@@ -17,7 +17,7 @@ const Popular = () => {
   const [data_product_men,setData_Product_Men]=useState([]);
 
   useEffect(()=>{
-    fetch('https://e-commerce-backend-xyu4.onrender.com/popularinmen')
+    fetch('https://e-commerce-back-end-vmli.onrender.com/popularinmen')
     .then((response)=>response.json())
     .then((data)=>setData_Product_Men(data));
   },[])

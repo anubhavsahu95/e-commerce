@@ -12,11 +12,27 @@ const cors = require("cors");
 const { type } = require("os");
 
 app.use(express.json());
-app.use(cors());
+
+const allowedOrigins = [
+  'https://e-commerce-admin-gsnx.onrender.com',
+  'https://e-commerce-frontend-5b1g.onrender.com',
+  'https://e-commerce-back-end-vmli.onrender.com',
+];
 
 const corsOptions = {
-  origin: 'https://e-commerce-admin-gsnx.onrender.com',
-}
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);  // Allow the request if the origin is in the list
+    } else {
+      callback(new Error('Not allowed by CORS'));  // Reject the request if the origin is not allowed
+    }
+  },
+  // other options like methods, credentials, etc.
+};
+app.use(cors(corsOptions));
 
 // Database Connection With MongoDB
 mongoose.connect(

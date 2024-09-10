@@ -17,6 +17,7 @@ const allowedOrigins = [
   'https://e-commerce-admin-gsnx.onrender.com',
   'https://e-commerce-frontend-5b1g.onrender.com',
   'https://e-commerce-back-end-vmli.onrender.com',
+  'http://localhost:3000'
 ];
 
 const corsOptions = {

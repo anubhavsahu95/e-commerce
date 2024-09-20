@@ -10,6 +10,7 @@ const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
 const { type } = require("os");
+const bcrypt = require('bcryptjs');
 
 const allowedOrigins = [
   'https://e-commerce-admin-gsnx.onrender.com',
@@ -226,10 +227,12 @@ app.post('/signup',async(req,res)=>{
     for (let i = 0; i < 300; i++) {
       cart[i]=0;
     }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
     const user = new Users({
       name:req.body.username,
       email:req.body.email,
-      password:req.body.password,
+      password:hashedPassword,
       cartData:cart,
     })
 
@@ -251,7 +254,7 @@ app.post('/signup',async(req,res)=>{
 app.post('/login',async(req,res)=>{
   let user=await Users.findOne({email:req.body.email});
   if(user){
-    const passCompare = req.body.password===user.password;
+    const passCompare = await bcrypt.compare(req.body.password, user.password);
     if(passCompare){
       const data={
         user:{
